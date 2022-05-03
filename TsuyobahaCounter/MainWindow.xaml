@@ -1,0 +1,116 @@
+﻿<Window x:Class="TsuyobahaCounter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TsuyobahaCounter"        
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding DropItems}" RowHeight="60" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Contribution}" FontSize="30" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid DataContext="{Binding EikanThumbnail}">
+                                <Grid.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick"
+                                                  Command="{Binding IncrementCountCommand}"/>
+                                </Grid.InputBindings>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding Path=Icon}"/>
+                                <TextBlock Grid.Column="1" Margin="5 0 5 0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Count}" FontSize="30"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid DataContext="{Binding HagyoThumbnail}">
+                                <Grid.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick"
+                                                  Command="{Binding IncrementCountCommand}"/>
+                                </Grid.InputBindings>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding Path=Icon}"/>
+                                <TextBlock Grid.Column="1" Margin="5 0 5 0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Count}" FontSize="30"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid DataContext="{Binding ShigokuThumbnail}">
+                                <Grid.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick"
+                                                  Command="{Binding IncrementCountCommand}"/>
+                                </Grid.InputBindings>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding Path=Icon}"/>
+                                <TextBlock Grid.Column="1" Margin="5 0 5 0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Count}" FontSize="30"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid DataContext="{Binding HihiiroThumbnail}">
+                                <Grid.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick"
+                                                  Command="{Binding IncrementCountCommand}"/>
+                                </Grid.InputBindings>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding Path=Icon}"/>
+                                <TextBlock Grid.Column="1" Margin="5 0 5 0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Count}" FontSize="30"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid DataContext="{Binding NoDropThumbnail}">
+                                <Grid.InputBindings>
+                                    <MouseBinding MouseAction="LeftClick"
+                                                  Command="{Binding IncrementCountCommand}"/>
+                                </Grid.InputBindings>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding Path=Icon}"/>
+                                <TextBlock Grid.Column="1" Margin="5 0 5 0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Count}" FontSize="30"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="2" Command="{Binding ClearDropCountCommand}">リセット</Button>
+    </Grid>
+</Window>
