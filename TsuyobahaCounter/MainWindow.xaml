@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:TsuyobahaCounter"        
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:CalcQuotientConverter x:Key="CalcQuotientConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -16,6 +19,33 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Label>討伐数</Label>
+                <TextBlock Text="{Binding TotalCount}"></TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Label>青箱数</Label>
+                <TextBlock Text="{Binding BlueTotalCount}"></TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Label>青箱率</Label>
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource  CalcQuotientConverter}">
+                            <Binding Path="BlueTotalCount"/>
+                            <Binding Path="TotalCount"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
         <DataGrid Grid.Row="1" ItemsSource="{Binding DropItems}" RowHeight="60" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Contribution}" FontSize="30" />

@@ -22,12 +22,53 @@ namespace TsuyobahaCounter.ViewModels
                 new DropItem(200, 299),
                 new DropItem(300, 800),
             };
+
+            foreach (var item in DropItems)
+            {
+                item.PropertyChanged += Item_PropertyChanged;
+            }
         }
+
+        private void Item_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "BlueDrop":
+                    TotalCount++;
+                    BlueTotalCount++;
+                    break;
+                case "NoDrop":
+                    TotalCount++;
+                    break;
+            }
+        }
+
+
 
         // ドロップアイテムのリスト
         private ObservableCollection<DropItem> _dropItems = new ObservableCollection<DropItem>();
         // ドロップ数初期化コマンド
         private RelayCommand? _clearDropCountCommand;
+
+        /// <summary>
+        /// 討伐数
+        /// </summary>
+        public int _totalCount = 0;
+        public int TotalCount
+        {
+            get => _totalCount;
+            set => SetProperty(ref _totalCount, value);
+        }
+
+        /// <summary>
+        /// 青箱数
+        /// </summary>
+        public int _blueTotalCount = 0;
+        public int BlueTotalCount
+        {
+            get => _blueTotalCount;
+            set => SetProperty(ref _blueTotalCount, value);
+        }
 
         /// <summary>
         /// ドロップアイテムのリスト
@@ -51,6 +92,8 @@ namespace TsuyobahaCounter.ViewModels
                         foreach(var item in DropItems)
                         {
                             item.InitCounts();
+                            TotalCount = 0;
+                            BlueTotalCount = 0;
                         }
                     });
             }
@@ -71,6 +114,34 @@ namespace TsuyobahaCounter.ViewModels
         {
             MinContribution = minContribution;
             MaxContribution = maxContribution;
+
+            EikanThumbnail.PropertyChanged += DropItem_PropertyChanged;
+            HagyoThumbnail.PropertyChanged += DropItem_PropertyChanged;
+            ShigokuThumbnail.PropertyChanged += DropItem_PropertyChanged;
+            HihiiroThumbnail.PropertyChanged += DropItem_PropertyChanged;
+            NoDropThumbnail.PropertyChanged += NoDropThumbnail_PropertyChanged;
+        }
+
+        private void DropItem_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Count":
+                    //@todo (暫定) 最終的には、各要素のすべてを足すようにしたい。こんな実装だといつかずれそう
+                    NotifyPropertyChanged("BlueDrop");
+                    break;
+            }
+        }
+
+        private void NoDropThumbnail_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Count":
+                    //@todo (暫定) 最終的には、各要素のすべてを足すようにしたい。こんな実装だといつかずれそう
+                    NotifyPropertyChanged("NoDrop");
+                    break;
+            }
         }
 
         // 貢献度 表示文字列
